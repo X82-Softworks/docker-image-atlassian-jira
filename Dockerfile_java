@@ -40,6 +40,7 @@ RUN apt-get update \
       wget \
       xmlstarlet \
       ttf-dejavu \
+      postgresql-client \
     && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
     && curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -o /usr/bin/wait-for-it \
     # Install Jira
