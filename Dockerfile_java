@@ -77,6 +77,7 @@ RUN wget -O /home/${JIRA_USER}/SSLPoke.class https://confluence.atlassian.com/kb
     && chown -R $JIRA_USER:$JIRA_GROUP ${JIRA_INSTALL}\
     && chown -R $JIRA_USER:$JIRA_GROUP ${JIRA_SCRIPTS} \
     && chown -R $JIRA_USER:$JIRA_GROUP /home/${JIRA_USER} \
+    && chmod +x /usr/local/bin/custom_scripts.sh /usr/local/bin/docker-entrypoint.sh /usr/local/bin/wait-for-it \
     # Clean caches and tmps
     && apt-get -y autoremove \
     && rm -rf /tmp/* /var/tmp/* \
