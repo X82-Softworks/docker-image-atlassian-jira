@@ -10,19 +10,6 @@ set -o errexit
 
 [[ ${DEBUG} == true ]] && set -x
 
-#
-# This function will wait for a specific host and port for as long as the timeout is specified.
-#
-function waitForDB() {
-  local waitHost=${DOCKER_WAIT_HOST:-}
-  local waitPort=${DOCKER_WAIT_PORT:-}
-  local waitTimeout=${DOCKER_WAIT_TIMEOUT:-60}
-  local waitIntervalTime=${DOCKER_WAIT_INTERVAL:-5}
-  if [ -n "${waitHost}" ] && [ -n "${waitPort}" ]; then
-    dockerize -timeout ${waitTimeout}s -wait-retry-interval ${waitIntervalTime}s -wait tcp://${waitHost}:${waitPort}
-  fi
-}
-
 if [ -n "${JIRA_DELAYED_START}" ]; then
   sleep ${JIRA_DELAYED_START}
 fi
@@ -74,7 +61,7 @@ sed -i "/${TARGET_PROPERTY}/d" ${JIRA_INSTALL}/conf/logging.properties
 echo "${TARGET_PROPERTY} = ${jira_logfile}" >> ${JIRA_INSTALL}/conf/logging.properties
 
 
-waitForDB
+/usr/local/bin/wait-for-it --timeout=120 -h ${JIRA_DB_HOST} -p ${JIRA_DB_PORT}
 
 /usr/local/bin/custom_scripts.sh
 

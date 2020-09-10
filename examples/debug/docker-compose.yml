@@ -5,20 +5,21 @@ services:
     image: eugenmayer/jira
     ports:
       - '80:8080'
-      - '5005:5005'
+      - '5005:5005' # the debug port
     environment:
-      - 'JIRA_DATABASE_URL=mysql://jiradb@mysql/jiradb'
+      - 'JIRA_DATABASE_URL=postgresql://jiradb@db/jiradb'
       - 'JIRA_DB_PASSWORD=jellyfish'
+      # need for the wait-for-db statement
+      - 'JIRA_DB_HOST=db'
+      - 'JIRA_DB_PORT=5432'
+      # debug ports
       - 'JPDA_ADDRESS=5005'
       - 'JPDA_TRANSPORT=dt_socket'
-    links:
-      - 'mysql:mysql'
     volumes:
       - './start-jira.sh:/opt/jira/bin/start-jira.sh'
-  mysql:
-    image: mysql:5.7
+  db:
+    image: postgres:10
     environment:
-      - 'MYSQL_ROOT_PASSWORD=verybigsecretrootpassword'
-      - 'MYSQL_DATABASE=jiradb'
-      - 'MYSQL_USER=jiradb'
-      - 'MYSQL_PASSWORD=jellyfish'
+      - 'POSTGRES_USER=jiradb'
+      - 'POSTGRES_PASSWORD=jellyfish'
+      - 'POSTGRES_DB=jiradb'

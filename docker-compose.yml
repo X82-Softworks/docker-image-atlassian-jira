@@ -16,20 +16,15 @@ services:
       - '80:8080'
     environment:
       - 'JIRA_DATABASE_URL=postgresql://jira@db/jiradb'
-      #- 'JIRA_DATABASE_URL=mysql://jira@mysql/jiradb'
-      # for mysql up to 5.6
-      #- 'JIRA_MYSQL_DB_VERSION=mysql
-      # for mysql from 5.7+=
-      #- 'JIRA_MYSQL_DB_VERSION=mysql57
       - 'JIRA_DB_PASSWORD=jellyfish'
       - 'CATALINA_OPTS= -Xms256m -Xmx1g'
       - 'JIRA_PROXY_NAME='
       - 'JIRA_PROXY_PORT='
       - 'JIRA_PROXY_SCHEME='
-      - 'DOCKER_WAIT_HOST=db'
-      - 'DOCKER_WAIT_PORT=5432'
-      #- 'DOCKER_WAIT_HOST=mysql'
-      #- 'DOCKER_WAIT_PORT=3306'
+      # need for the wait-for-db statement
+      - 'JIRA_DB_HOST=db'
+      - 'JIRA_DB_PORT=5432'
+      #- 'JIRA_DB_PORT=3306'
 
   db:
     image: postgres:10

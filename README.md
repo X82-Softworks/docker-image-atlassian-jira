@@ -44,7 +44,25 @@ docker run -d -p 80:8080 -v jiravolume:/var/atlassian/jira --name jira eugenmaye
 
 See the `docker-compose.yml` file
 
-Notes for Mysql: if you run mysql5.7+ be sure to set `JIRA_MYSQL_DB_VERSION=mysql57` in the ENV vars of the jira container
+Also see the folder `examples/` for different examples with postgres or mysql
+
+# Environment variables
+
+Configures the db host to wait for the DB to come up. Those variables are not used by confluence during the installation
+- JIRA_DB_HOST=db 
+- JIRA_DB_PORT=5432
+
+Set the DEBUG port, e.g. for development
+- JPDA_ADDRESS=5005
+- JPDA_TRANSPORT=dt_socket
+
+Configuration
+- CATALINA_OPTS=-Xms256m -Xmx1g
+- JIRA_CONTEXT_PATH= # context path like `/jira`
+- JIRA_PROXY_NAME=
+- JIRA_PROXY_PORT=
+- JIRA_PROXY_SCHEME=
+- JIRA_DELAYED_START= # seconds to wait before starting jira
 
 # Build the image
 
