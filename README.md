@@ -66,10 +66,9 @@ Configuration
 
 # Build the image
 
-You can build the image yourself. You might want to adjust the desired jira version in `.env`
-
 ```
-docker-compose build jira
+    git clone https://github.com/EugenMayer/docker-image-atlassian-jira
+    cd docker-image-atlassian-jira
 ```
 
 To build a custom jira version of your liking
@@ -78,14 +77,6 @@ Jira >= =8.0.1
 
 ``` 
     export VERSION=8.0.1
-    docker build . -t eugenmayer/jira:# $VERSION --build-args JIRA_VERSION=$VERSION
-```
-
-
-Jira <= 8.0.0
-
-``` 
-    export VERSION=7.1.2
     docker build . -t eugenmayer/jira:# $VERSION --build-args JIRA_VERSION=$VERSION
 ```
 
