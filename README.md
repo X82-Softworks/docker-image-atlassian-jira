@@ -72,6 +72,28 @@ You can build the image yourself. You might want to adjust the desired jira vers
 docker-compose build jira
 ```
 
+To build a custom jira version of your liking
+
+Jira >= =8.0.1
+
+``` 
+    export VERSION=8.0.1
+    docker build . -t eugenmayer/jira:# $VERSION --build-args JIRA_VERSION=$VERSION
+```
+
+
+Jira <= 8.0.0
+
+``` 
+    export VERSION=7.1.2
+    docker build . -t eugenmayer/jira:# $VERSION --build-args JIRA_VERSION=$VERSION
+```
+
+For any version of jira <= 8.0.0, we neeed Java 8
+
+    export VERSION=6.17.1
+    docker build . -f Dockerfile_java8 -t eugenmayer/jira:# $VERSION --build-args JIRA_VERSION=$VERSION
+    
 # Run in debug mode
 
 If you want to run JIRA with a debug port, please see `examples/debug` - esentially what we do is
