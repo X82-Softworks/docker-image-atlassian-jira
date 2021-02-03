@@ -54,7 +54,8 @@ RUN apt-get update \
 # install jira
 RUN wget -O /tmp/jira.bin ${DOWNLOAD_URL} \
     && chmod +x /tmp/jira.bin \
-    && /tmp/jira.bin -q -varfile ${JIRA_SCRIPTS}/response.varfile
+    && /tmp/jira.bin -q -varfile ${JIRA_SCRIPTS}/response.varfile \
+    && && rm -rf /tmp/* /var/tmp/*
 
 # must come after the install, which creates the group itself
 RUN export CONTAINER_USER=jira \
@@ -68,7 +69,8 @@ RUN export CONTAINER_USER=jira \
 RUN  rm -f ${JIRA_INSTALL}/lib/mysql-connector-java*.jar \
     && wget -O /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz "http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz" \
     && tar xzf /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}.tar.gz --directory=/tmp \
-    && cp /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar
+    && cp /tmp/mysql-connector-java-${MYSQL_DRIVER_VERSION}/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar ${JIRA_INSTALL}/lib/mysql-connector-java-${MYSQL_DRIVER_VERSION}.jar \
+    && && rm -rf /tmp/* /var/tmp/* 
 
 # Adding letsencrypt-ca to truststore # && \
 # Install atlassian ssl tool, which is mainly need to be able to create application links with other atlassian tools, which run LE SSL certificates
